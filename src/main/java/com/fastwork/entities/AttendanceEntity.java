@@ -1,11 +1,9 @@
 package com.fastwork.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fastwork.enums.Shift;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -32,7 +30,10 @@ public class AttendanceEntity extends BaseEntity {
     private int hoursWorked;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "employee_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private UserEntity employee;
 }

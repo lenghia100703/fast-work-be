@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.4.0-oracle
+    environment:
+      MYSQL_ROOT_PASSWORD: nghia
+      MYSQL_DATABASE: fast-work
+    ports:
+      - "3306:3306"
+    networks:
+      - spring-api-mysql-net
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  app:
+    build: .
+    ports:
+      - "8888:8888"
+    networks:
+      - spring-api-mysql-net
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fast-work?allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: nghia
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:
+
+networks:
+  spring-api-mysql-net:

@@ -1,10 +1,8 @@
 package com.fastwork.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -28,5 +26,8 @@ public class AdvanceEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonIgnore
     private UserEntity employee;
 }
