@@ -8,6 +8,7 @@ public enum ResponseCode {
     ERROR("ERROR"),
     NOT_FOUND("NOT_FOUND"),
     USER_IS_DELETE("USER_IS_DELETE"),
+    USER_NOT_AUTHENTICATED("USER_NOT_AUTHENTICATED"),
     EMAIL_NOT_CONFIRMED("EMAIL_NOT_CONFIRMED");
     private final String code;
 

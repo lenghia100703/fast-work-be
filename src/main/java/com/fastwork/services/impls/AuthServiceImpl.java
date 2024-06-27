@@ -1,6 +1,7 @@
 package com.fastwork.services.impls;
 
 import com.fastwork.dtos.auth.AuthResponseDto;
+import com.fastwork.dtos.auth.EmailDto;
 import com.fastwork.dtos.auth.LoginDto;
 import com.fastwork.dtos.auth.SignUpDto;
 import com.fastwork.dtos.common.CommonResponseDto;
@@ -139,6 +140,24 @@ public class AuthServiceImpl implements AuthService {
         response.addHeader(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString());
 
         return new CommonResponseDto<>("Logged out successfully");
+    }
+
+    @Override
+    public CommonResponseDto<String> forgotPassword(EmailDto emailDto) throws MessagingException {
+        UserEntity user = userRepository.findUserByEmail(emailDto.getEmail()).get();
+        VerificationTokenEntity verificationToken = createVerificationToken(user, TypeToken.FORGOT);
+        mailService.sendForgotPasswordEmail(new MailConfirmDto(verificationToken));
+
+        return new CommonResponseDto<>("Send reset password successfully");
+    }
+
+    @Override
+    public CommonResponseDto<String> reSendConfirmation(EmailDto emailDto) throws MessagingException {
+        UserEntity user = userRepository.findUserByEmail(emailDto.getEmail()).get();
+        VerificationTokenEntity verificationToken = createVerificationToken(user, TypeToken.CONFIRM);
+        mailService.sendConfirmationEmail(new MailConfirmDto(verificationToken));
+
+        return new CommonResponseDto<>("Resend confirmation email successfully");
     }
 
     private VerificationTokenEntity createVerificationToken(UserEntity user, TypeToken type) {

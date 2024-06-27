@@ -42,10 +42,12 @@ public class MailServiceImpl implements MailService {
             helper.setSubject("Confirm you E-Mail");
             helper.setText("<html>" +
                             "<body>" +
-                            "<h2>Dear " + mailConfirmDto.getUser().getUsername() + ",</h2>"
+                            "<h3>Dear " + mailConfirmDto.getUser().getUsername() + ",</h3>"
                             + "<br/> We're excited to have you get started. " +
                             "Please click on below link to confirm your account."
-                            + "<br/> " + generateConfirmationLink(mailConfirmDto.getToken(), "CONFIRM") +
+                            + "<br />"
+                            + "<br/> " + generateConfirmationLink(mailConfirmDto.getToken(), "CONFIRM")
+                            + "<br />" +
                             "<br/> Regards,<br/>" +
                             "Registration team" +
                             "</body>" +
@@ -55,9 +57,11 @@ public class MailServiceImpl implements MailService {
             helper.setSubject("Forgot password");
             helper.setText("<html>" +
                             "<body>" +
-                            "<h2>Dear " + mailConfirmDto.getUser().getUsername() + ",</h2>" +
+                            "<h3>Dear " + mailConfirmDto.getUser().getUsername() + ",</h3>" +
                             "Please click the link below to get your account back."
-                            + "<br/> " + generateConfirmationLink(mailConfirmDto.getToken(), "FORGOT") +
+                            + "<br />"
+                            + "<br/> " + generateConfirmationLink(mailConfirmDto.getToken(), "FORGOT")
+                            + "<br />" +
                             "<br/> Regards,<br/>" +
                             "Registration team" +
                             "</body>" +

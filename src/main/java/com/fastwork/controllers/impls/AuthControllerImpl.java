@@ -2,6 +2,7 @@ package com.fastwork.controllers.impls;
 
 import com.fastwork.controllers.AuthController;
 import com.fastwork.dtos.auth.AuthResponseDto;
+import com.fastwork.dtos.auth.EmailDto;
 import com.fastwork.dtos.auth.LoginDto;
 import com.fastwork.dtos.auth.SignUpDto;
 import com.fastwork.dtos.common.CommonResponseDto;
@@ -29,5 +30,15 @@ public class AuthControllerImpl implements AuthController {
     @Override
     public CommonResponseDto<String> logout() {
         return authService.logout();
+    }
+
+    @Override
+    public CommonResponseDto<String> forgotPassword(EmailDto emailDto) throws MessagingException {
+        return authService.forgotPassword(emailDto);
+    }
+
+    @Override
+    public CommonResponseDto<String> reSendConfirmation(EmailDto emailDto) throws MessagingException {
+        return authService.reSendConfirmation(emailDto);
     }
 }
