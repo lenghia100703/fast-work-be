@@ -36,6 +36,7 @@ public class UserDto {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.phone = user.getPhone();
+        this.address = user.getAddress();
         this.role = user.getRole().toString();
         this.avatar = user.getAvatar();
         this.age = user.getAge();
