@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,11 @@ public class ConstructionEntity extends BaseEntity {
     private String description;
 
     private Date registrationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private UserEntity owner;
 
     @OneToMany(
             mappedBy = "construction",

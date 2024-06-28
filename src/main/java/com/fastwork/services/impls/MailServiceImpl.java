@@ -63,7 +63,7 @@ public class MailServiceImpl implements MailService {
                             + "<br/> " + generateConfirmationLink(mailConfirmDto.getToken(), "FORGOT")
                             + "<br />" +
                             "<br/> Regards,<br/>" +
-                            "Registration team" +
+                            "Fast Work Team" +
                             "</body>" +
                             "</html>"
                     , true);
