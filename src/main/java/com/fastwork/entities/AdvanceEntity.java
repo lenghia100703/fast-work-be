@@ -25,6 +25,8 @@ public class AdvanceEntity extends BaseEntity {
 
     private String note;
 
+    private Long amount;
+
     @ManyToOne
     @JoinColumn(name = "employee_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
