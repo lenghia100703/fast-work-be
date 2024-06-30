@@ -4,16 +4,17 @@ import com.fastwork.dtos.user.UserDto;
 import com.fastwork.entities.AdvanceEntity;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 public class AdvanceDto {
     private Long id;
-    private LocalDate advanceDate;
+    private Date advanceDate;
     private String description;
     private String note;
-    private UserDto employee;
+    private UserDto owner;
+    private String giver;
+    private String responder;
     private Date createdAt;
     private Date updatedAt;
     private String createdBy;
@@ -24,7 +25,9 @@ public class AdvanceDto {
         this.advanceDate = advance.getAdvanceDate();
         this.description = advance.getDescription();
         this.note = advance.getNote();
-        this.employee = new UserDto(advance.getEmployee());
+        this.owner = new UserDto(advance.getOwner());
+        this.giver = advance.getGiver();
+        this.responder = advance.getResponder();
         this.createdAt = advance.getCreatedAt();
         this.updatedAt = advance.getUpdatedAt();
         this.createdBy = advance.getCreatedBy();

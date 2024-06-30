@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "advance")
@@ -19,19 +19,25 @@ public class AdvanceEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDate advanceDate;
+    private Date advanceDate;
 
+    @Column(length = 500)
     private String description;
 
+    @Column(length = 500)
     private String note;
 
     private Long amount;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "owner_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonIgnore
-    private UserEntity employee;
+    private UserEntity owner;
+
+    private String giver;
+
+    private String responder;
 }

@@ -35,6 +35,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     private String phone;
 
+    @Column(length = 500)
     private String avatar;
 
     private String address;
@@ -62,7 +63,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AttendanceEntity> attendances;
 
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<AdvanceEntity> advances;
 
     @Override

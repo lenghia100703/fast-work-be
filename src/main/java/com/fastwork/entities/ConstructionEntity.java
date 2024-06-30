@@ -28,6 +28,7 @@ public class ConstructionEntity extends BaseEntity {
 
     private String address;
 
+    @Column(length = 500)
     private String description;
 
     private Date registrationDate;

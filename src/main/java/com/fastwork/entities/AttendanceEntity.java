@@ -25,6 +25,7 @@ public class AttendanceEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Shift shift;
 
+    @Column(length = 500)
     private String note;
 
     private int hoursWorked;
