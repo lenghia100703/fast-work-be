@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 public class ConstructionDto {
     private Long id;
-    private String hostName;
+    private String username;
     private String phone;
     private String address;
     private String description;
@@ -23,7 +23,7 @@ public class ConstructionDto {
 
     public ConstructionDto(ConstructionEntity construction) {
         this.id = construction.getId();
-        this.hostName = construction.getHostName();
+        this.username = construction.getUsername();
         this.phone = construction.getPhone();
         this.address = construction.getAddress();
         this.description = construction.getDescription();

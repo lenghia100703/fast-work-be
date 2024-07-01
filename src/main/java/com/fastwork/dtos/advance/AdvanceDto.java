@@ -15,6 +15,7 @@ public class AdvanceDto {
     private UserDto owner;
     private String giver;
     private String responder;
+    private Long amount;
     private Date createdAt;
     private Date updatedAt;
     private String createdBy;
@@ -25,8 +26,9 @@ public class AdvanceDto {
         this.advanceDate = advance.getAdvanceDate();
         this.description = advance.getDescription();
         this.note = advance.getNote();
-        this.owner = new UserDto(advance.getOwner());
+//        this.owner = new UserDto(advance.getOwner());
         this.giver = advance.getGiver();
+        this.amount = advance.getAmount();
         this.responder = advance.getResponder();
         this.createdAt = advance.getCreatedAt();
         this.updatedAt = advance.getUpdatedAt();

@@ -6,7 +6,6 @@ import com.fastwork.dtos.common.PaginatedDataDto;
 import com.fastwork.dtos.construction.AddConstructionDto;
 import com.fastwork.dtos.construction.ConstructionDto;
 import com.fastwork.dtos.construction.EditConstructionDto;
-import com.fastwork.dtos.user.UserDto;
 import com.fastwork.entities.ConstructionEntity;
 import com.fastwork.enums.ResponseCode;
 import com.fastwork.exceptions.CommonException;
@@ -59,7 +58,7 @@ public class ConstructionServiceImpl implements ConstructionService {
     @Override
     public CommonResponseDto<ConstructionDto> createConstruction(AddConstructionDto addConstructionDto) {
         ConstructionEntity construction = new ConstructionEntity();
-        construction.setHostName(addConstructionDto.getHostName());
+        construction.setUsername(addConstructionDto.getUsername());
         construction.setPhone(addConstructionDto.getPhone());
         construction.setAddress(addConstructionDto.getAddress());
         construction.setDescription(addConstructionDto.getDescription());
@@ -76,7 +75,7 @@ public class ConstructionServiceImpl implements ConstructionService {
             throw new CommonException(ResponseCode.NOT_FOUND, "Không tìm thấy công trình!");
         }
 
-        construction.setHostName(editConstructionDto.getHostName());
+        construction.setUsername(editConstructionDto.getUsername());
         construction.setPhone(editConstructionDto.getPhone());
         construction.setAddress(editConstructionDto.getAddress());
         construction.setDescription(editConstructionDto.getDescription());

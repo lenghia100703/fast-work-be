@@ -3,14 +3,15 @@ package com.fastwork.services.impls;
 import com.fastwork.constants.PageableConstants;
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.common.PaginatedDataDto;
-import com.fastwork.dtos.user.AddUserDto;
-import com.fastwork.dtos.user.ChangePasswordDto;
-import com.fastwork.dtos.user.UserDto;
+import com.fastwork.dtos.construction.ConstructionDto;
+import com.fastwork.dtos.user.*;
+import com.fastwork.entities.ConstructionEntity;
 import com.fastwork.entities.UserEntity;
 import com.fastwork.entities.VerificationTokenEntity;
 import com.fastwork.enums.ResponseCode;
 import com.fastwork.enums.Role;
 import com.fastwork.exceptions.CommonException;
+import com.fastwork.repositories.ConstructionRepository;
 import com.fastwork.repositories.UserRepository;
 import com.fastwork.repositories.VerificationTokenRepository;
 import com.fastwork.services.UserService;
@@ -42,6 +43,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     VerificationTokenRepository verificationTokenRepository;
+
+    @Autowired
+    ConstructionRepository constructionRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -170,6 +174,31 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
 
         return new CommonResponseDto<>("Change password successfully");
+    }
+
+    @Override
+    public CommonResponseDto<List<UserRoleDto>> getUserRole() {
+        List<UserRoleDto> allUsers = userRepository.findAllUsernamesAndRoles();
+
+        return new CommonResponseDto<>(allUsers);
+    }
+
+    @Override
+    public CommonResponseDto<?> getByIdAndRole(IdRoleDto idRoleDto) {
+        Optional<?> res = userRepository.findByIdAndRole(idRoleDto.getId(), Role.valueOf(idRoleDto.getRole()), constructionRepository);
+
+        if (res.isPresent()) {
+            Object entity = res.get();
+            if (entity instanceof UserEntity) {
+                UserDto userDto = new UserDto((UserEntity) entity);
+                return new CommonResponseDto<>(userDto);
+            } else if (entity instanceof ConstructionEntity) {
+                ConstructionDto constructionDto = new ConstructionDto((ConstructionEntity) entity);
+                return new CommonResponseDto<>(constructionDto);
+            }
+        }
+
+        return new CommonResponseDto<>(null);
     }
 
     @Override

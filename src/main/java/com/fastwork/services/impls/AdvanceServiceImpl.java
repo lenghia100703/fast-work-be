@@ -7,9 +7,11 @@ import com.fastwork.dtos.advance.EditAdvanceDto;
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.common.PaginatedDataDto;
 import com.fastwork.entities.AdvanceEntity;
+import com.fastwork.entities.ConstructionEntity;
 import com.fastwork.entities.UserEntity;
 import com.fastwork.exceptions.CommonException;
 import com.fastwork.repositories.AdvanceRepository;
+import com.fastwork.repositories.ConstructionRepository;
 import com.fastwork.repositories.UserRepository;
 import com.fastwork.services.AdvanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.fastwork.enums.ResponseCode.ERROR;
@@ -32,6 +35,9 @@ public class AdvanceServiceImpl implements AdvanceService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ConstructionRepository constructionRepository;
 
     @Override
     public PaginatedDataDto<AdvanceDto> getAdvanceByPage(int page) {
@@ -60,12 +66,12 @@ public class AdvanceServiceImpl implements AdvanceService {
 
     @Override
     public CommonResponseDto<AdvanceDto> createAdvance(AddAdvanceDto addAdvanceDto) {
-        UserEntity owner = userRepository.getOne(addAdvanceDto.getOwnerId());
+        UserEntity owner = userRepository.getById(addAdvanceDto.getOwnerId());
+        AdvanceEntity advance = new AdvanceEntity();
         if (owner == null) {
             throw new CommonException(ERROR, "Người dùng không tồn tại");
         }
 
-        AdvanceEntity advance = new AdvanceEntity();
         advance.setAdvanceDate(new Date(System.currentTimeMillis()));
         advance.setDescription(addAdvanceDto.getDescription());
         advance.setNote(addAdvanceDto.getNote());

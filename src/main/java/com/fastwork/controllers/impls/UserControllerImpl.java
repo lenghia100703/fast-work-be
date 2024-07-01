@@ -3,9 +3,7 @@ package com.fastwork.controllers.impls;
 import com.fastwork.controllers.UserController;
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.common.PaginatedDataDto;
-import com.fastwork.dtos.user.AddUserDto;
-import com.fastwork.dtos.user.ChangePasswordDto;
-import com.fastwork.dtos.user.UserDto;
+import com.fastwork.dtos.user.*;
 import com.fastwork.enums.ResponseCode;
 import com.fastwork.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class UserControllerImpl implements UserController {
@@ -40,6 +39,17 @@ public class UserControllerImpl implements UserController {
     @Override
     public CommonResponseDto<UserDto> createUser(AddUserDto addUserDto) {
         return userService.createUser(addUserDto);
+    }
+
+    @Override
+    public CommonResponseDto<List<UserRoleDto>> getUserRole() {
+        return userService.getUserRole();
+    }
+
+    @Override
+    public CommonResponseDto<?> getByIdAndRole(Long id, String role) {
+        IdRoleDto idRoleDto = new IdRoleDto(id, role);
+        return userService.getByIdAndRole(idRoleDto);
     }
 
     @Override

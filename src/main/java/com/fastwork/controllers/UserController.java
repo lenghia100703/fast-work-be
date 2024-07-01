@@ -2,13 +2,12 @@ package com.fastwork.controllers;
 
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.common.PaginatedDataDto;
-import com.fastwork.dtos.user.AddUserDto;
-import com.fastwork.dtos.user.ChangePasswordDto;
-import com.fastwork.dtos.user.UserDto;
+import com.fastwork.dtos.user.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequestMapping("/api/user")
 public interface UserController {
@@ -23,6 +22,12 @@ public interface UserController {
 
     @PostMapping("")
     CommonResponseDto<UserDto> createUser(@RequestBody AddUserDto addUserDto);
+
+    @GetMapping("/role")
+    CommonResponseDto<List<UserRoleDto>> getUserRole();
+
+    @GetMapping("/{role}/{id}")
+    CommonResponseDto<?> getByIdAndRole(@PathVariable("id") Long id, @PathVariable("role") String role);
 
     @PutMapping("/{id}")
     CommonResponseDto<String> editUser(@PathVariable("id") Long id,

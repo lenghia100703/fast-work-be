@@ -22,7 +22,7 @@ public class ConstructionEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String hostName;
+    private String username;
 
     private String phone;
 
