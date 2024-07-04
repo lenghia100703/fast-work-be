@@ -62,6 +62,8 @@ public class ConstructionServiceImpl implements ConstructionService {
         construction.setPhone(addConstructionDto.getPhone());
         construction.setAddress(addConstructionDto.getAddress());
         construction.setDescription(addConstructionDto.getDescription());
+        construction.setRegistrationDate(new Date(System.currentTimeMillis()));
+        construction.setOwner(userService.getCurrentUser());
         construction.setCreatedAt(new Date(System.currentTimeMillis()));
         construction.setCreatedBy(userService.getCurrentUser().getEmail());
         return new CommonResponseDto<>(new ConstructionDto(constructionRepository.save(construction)));

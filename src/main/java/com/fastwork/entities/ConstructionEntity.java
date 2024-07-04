@@ -1,5 +1,6 @@
 package com.fastwork.entities;
 
+import com.fastwork.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class ConstructionEntity extends BaseEntity {
     private String description;
 
     private Date registrationDate;
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.HOST;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")

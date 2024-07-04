@@ -1,11 +1,15 @@
 package com.fastwork.dtos.construction;
 
+import com.fastwork.dtos.attendance.AttendanceDto;
 import com.fastwork.dtos.expense.ExpenseDto;
+import com.fastwork.dtos.user.UserDto;
 import com.fastwork.entities.ConstructionEntity;
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 public class ConstructionDto {
@@ -16,6 +20,7 @@ public class ConstructionDto {
     private String description;
     private Date registrationDate;
     private List<ExpenseDto> expenses;
+    private UserDto owner;
     private Date createdAt;
     private Date updatedAt;
     private String createdBy;
@@ -28,7 +33,12 @@ public class ConstructionDto {
         this.address = construction.getAddress();
         this.description = construction.getDescription();
         this.registrationDate = construction.getRegistrationDate();
-        this.expenses = construction.getExpenses().stream().map(ExpenseDto::new).toList();
+        this.expenses = Optional.ofNullable(construction.getExpenses())
+                .orElse(Collections.emptyList())
+                .stream()
+                .map(ExpenseDto::new)
+                .toList();
+        this.owner = new UserDto(construction.getOwner());
         this.createdAt = construction.getCreatedAt();
         this.updatedAt = construction.getUpdatedAt();
         this.createdBy = construction.getCreatedBy();

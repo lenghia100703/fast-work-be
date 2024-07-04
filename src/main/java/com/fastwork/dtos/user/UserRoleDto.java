@@ -12,6 +12,7 @@ public class UserRoleDto {
     public UserRoleDto(Long id, String username, Role role) {
         this.id = id;
         this.username = username;
+        System.out.println(role);
         this.role = role.toString();
     }
 }

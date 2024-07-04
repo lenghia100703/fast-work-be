@@ -19,11 +19,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllUserByRole();
 
     @Query("""
-        SELECT new com.fastwork.dtos.user.UserRoleDto(u.id, u.username, u.role)\s
-        FROM UserEntity u\s
-        UNION\s
-        SELECT new com.fastwork.dtos.user.UserRoleDto(c.id, c.username, com.fastwork.enums.Role.HOST)\s
-        FROM ConstructionEntity c""")
+    SELECT new com.fastwork.dtos.user.UserRoleDto(u.id, u.username, u.role)
+    FROM UserEntity u
+    UNION
+    SELECT new com.fastwork.dtos.user.UserRoleDto(c.id, c.username, c.role)
+    FROM ConstructionEntity c""")
     List<UserRoleDto> findAllUsernamesAndRoles();
 
     default Optional<?> findByIdAndRole(Long id, Role role, ConstructionRepository constructionRepository) {
