@@ -1,9 +1,6 @@
 package com.fastwork.services.impls;
 
-import com.fastwork.dtos.auth.AuthResponseDto;
-import com.fastwork.dtos.auth.EmailDto;
-import com.fastwork.dtos.auth.LoginDto;
-import com.fastwork.dtos.auth.SignUpDto;
+import com.fastwork.dtos.auth.*;
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.mail.MailConfirmDto;
 import com.fastwork.dtos.user.UserDto;
@@ -160,9 +157,28 @@ public class AuthServiceImpl implements AuthService {
         return new CommonResponseDto<>("Resend confirmation email successfully");
     }
 
+    @Override
+    public CommonResponseDto<String> confirmRegistration(ConfirmToken confirmToken) {
+        VerificationTokenEntity token = verificationTokenRepository.findVerificationTokenByToken(confirmToken.getToken()).orElse(null);
+
+        if (token == null) {
+            return new CommonResponseDto<>(ResponseCode.NOT_FOUND);
+        }
+
+        if (token.getExpiryDate().before(new Date(System.currentTimeMillis()))) {
+            return new CommonResponseDto<>(ResponseCode.TOKEN_HAS_EXPIRED);
+        }
+
+        UserEntity user = userRepository.getById(token.getUser().getId());
+        user.setEmailConfirmed(true);
+        userRepository.save(user);
+        return new CommonResponseDto<>("Confirm registration successfully");
+    }
+
     private VerificationTokenEntity createVerificationToken(UserEntity user, TypeToken type) {
         String token = UUID.randomUUID().toString().replace("-", "");
         VerificationTokenEntity myToken = new VerificationTokenEntity(token, user, type);
+        myToken.setCreatedAt(new Date(System.currentTimeMillis()));
         return verificationTokenRepository.save(myToken);
     }
 }

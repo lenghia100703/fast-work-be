@@ -1,9 +1,6 @@
 package com.fastwork.controllers;
 
-import com.fastwork.dtos.auth.AuthResponseDto;
-import com.fastwork.dtos.auth.EmailDto;
-import com.fastwork.dtos.auth.LoginDto;
-import com.fastwork.dtos.auth.SignUpDto;
+import com.fastwork.dtos.auth.*;
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.user.UserDto;
 import jakarta.mail.MessagingException;
@@ -27,4 +24,7 @@ public interface AuthController {
 
     @PostMapping("/resend-confirmation")
     CommonResponseDto<String> reSendConfirmation(@RequestBody EmailDto emailDto) throws MessagingException;
+
+    @PostMapping("/confirm-registration")
+    CommonResponseDto<String> confirmRegistration(@RequestBody ConfirmToken confirmToken);
 }

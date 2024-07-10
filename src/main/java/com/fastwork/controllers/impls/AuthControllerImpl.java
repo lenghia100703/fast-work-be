@@ -1,10 +1,7 @@
 package com.fastwork.controllers.impls;
 
 import com.fastwork.controllers.AuthController;
-import com.fastwork.dtos.auth.AuthResponseDto;
-import com.fastwork.dtos.auth.EmailDto;
-import com.fastwork.dtos.auth.LoginDto;
-import com.fastwork.dtos.auth.SignUpDto;
+import com.fastwork.dtos.auth.*;
 import com.fastwork.dtos.common.CommonResponseDto;
 import com.fastwork.dtos.user.UserDto;
 import com.fastwork.services.AuthService;
@@ -40,5 +37,10 @@ public class AuthControllerImpl implements AuthController {
     @Override
     public CommonResponseDto<String> reSendConfirmation(EmailDto emailDto) throws MessagingException {
         return authService.reSendConfirmation(emailDto);
+    }
+
+    @Override
+    public CommonResponseDto<String> confirmRegistration(ConfirmToken confirmToken) {
+        return authService.confirmRegistration(confirmToken);
     }
 }

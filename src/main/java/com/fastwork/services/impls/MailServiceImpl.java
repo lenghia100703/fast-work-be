@@ -74,7 +74,7 @@ public class MailServiceImpl implements MailService {
 
     private String generateConfirmationLink(String token, String type) {
         if (Objects.equals(type, "CONFIRM")) {
-            return "<a href=" + domain + "/confirm-email?token=" + token + ">Redirect</a>";
+            return "<a href=" + domain + "/confirm-registration?token=" + token + ">Redirect</a>";
         } else if (Objects.equals(type, "FORGOT")) {
             return "<a href=" + domain + "/forgot-password?token=" + token + ">Redirect</a>";
         }
